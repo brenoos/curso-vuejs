@@ -12,6 +12,7 @@
             <li v-for="o in menus"><a href="javascript:void(0)" v-on:click="showView(o.id);"> {{o.name}} </a></li>
         </ul>
     </nav>
+    <div v-if="activedView == 0">
     <table border="1" cellpadding="10">
         <thead>
             <tr>
@@ -32,7 +33,12 @@
             </tr>
         </tbody>
     </table>
-
+    </div>
+    <div v-if="activedView == 1">
+        <form name="form">
+            Teste:<input type="text" />
+        </form>
+    </div>
     <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </body>
