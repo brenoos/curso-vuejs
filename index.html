@@ -36,7 +36,8 @@
     </div>
     <div v-if="activedView == 1">
         <form name="form">
-            Teste:<input type="text" />
+            Teste:<input type="text" v-model="test"/>
+            {{test}}
         </form>
     </div>
     <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
