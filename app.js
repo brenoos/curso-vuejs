@@ -8,6 +8,7 @@ var app = new Vue({
             {id: 1, name: "Criar Conta"}
         ],
         activedView: 1,
+        formType: 'insert',
         bill: {
             data_due: '',
             name: '',
@@ -47,15 +48,26 @@ var app = new Vue({
     methods: {
         showView: function(id){
             this.activedView = id;
+            if(id == 1){
+                this.formType = 'insert';
+            }
         },
         submit: function(){
-            this.bills.push(this.bill);
+            if(this.formType == 'insert'){
+                this.bills.push(this.bill);
+            }
+            this.bill = {
+                data_due: '',
+                name: '',
+                value: 0,
+                done: 0
+            };
             this.activedView = 0;
-            this.bill = "";
+        },
+        loadBill: function(bill){
+            this.bill = bill;
+            this.activedView = 1;
+            this.formType = 'update'
         }
     }
 });
-
-app.$watch('test', function(novoValor,velhoValor){
-    console.log("velhoValor: "+ velhoValor +", novoValor: " + novoValor);
-})

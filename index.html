@@ -23,6 +23,7 @@
                 <th>Nome</th>
                 <th>Valor</th>
                 <th>Paga?</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,9 @@
                 <td> {{o.name}} </td>
                 <td> {{o.value}} </td>
                 <td> {{o.done}} </td>
+                <td>
+                    <a href="#" @click.prevent="loadBill(o)">Editar</a>
+                </td>
             </tr>
         </tbody>
     </table>
