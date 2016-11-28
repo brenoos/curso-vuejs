@@ -9,7 +9,9 @@
     <h3> {{status}} </h3>
     <nav>
         <ul>
-            <li v-for="o in menus"><a href="javascript:void(0)" v-on:click="showView(o.id);"> {{o.name}} </a></li>
+            <li v-for="o in menus">
+                <a href="#" @click.prevent="showView(o.id);"> {{o.name}} </a>
+                </li>
         </ul>
     </nav>
     <div v-if="activedView == 0">
@@ -35,12 +37,22 @@
     </table>
     </div>
     <div v-if="activedView == 1">
-        <form name="form">
-            Teste:<input type="text" v-model="test"/>
-            {{test}}
+        <form name="form" @submit.prevent="submit">
+            <label>Vencimento:</label>
+            <input type="text" v-model="bill.data_due" />
+            <br /><br />
+            <label>Nome:</label>
+            <select v-model="bill.name">
+                <option v-for="o in names" value="{{o}}"> {{o}} </option>
+            </select>
+            <br /><br />
+            <label>Valor:</label>
+            <input type="text" v-model="bill.value"/>
+            <br /><br />
+            <input type="submit" value="Enviar"/>
         </form>
     </div>
-    <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
+    <script type="text/javascript" src="node_modules/vue/dist/vue.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
