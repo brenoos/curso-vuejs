@@ -10,6 +10,9 @@
         .nao-pago{
             color: red;
         }
+        .cinza{
+            color: gray;
+        }
         .minha-classe{
             background-color: burlywood;
         }
@@ -17,7 +20,7 @@
 </head>
 <body id="app">
     <h1> {{title}} </h1>
-    <h3> {{status}} </h3>
+    <h3 :class="{'nao-pago': status, 'pago': status==0, 'cinza': !status}"> {{status | corContas}} </h3>
     <nav>
         <ul>
             <li v-for="o in menus">
@@ -47,7 +50,7 @@
                     {{o.done | doneLabel}} 
                 </td>
                 <td>
-                    <a href="#" @click.prevent="loadBill(o)">Editar</a>
+                    <a href="#" @click.prevent="loadBill(o)">Editar</a> <a href="#" @click.prevent='remover(index)'>Remover</a>
                 </td>
             </tr>
         </tbody>
@@ -65,6 +68,9 @@
             <br /><br />
             <label>Valor:</label>
             <input type="text" v-model="bill.value"/>
+            <br /><br />
+            <label> Paga</label>
+            <input type="checkbox" v-model="bill.done" />
             <br /><br />
             <input type="submit" value="Enviar"/>
         </form>
