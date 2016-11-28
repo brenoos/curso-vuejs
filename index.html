@@ -20,7 +20,7 @@
 </head>
 <body id="app">
     <h1> {{title}} </h1>
-    <h3 :class="{'nao-pago': status, 'pago': status==0, 'cinza': !status}"> {{status | corContas}} </h3>
+    <h3 :class="{'nao-pago': status > 0, 'pago': status === 0, 'cinza': status === false}"> {{status | corContas}} </h3>
     <nav>
         <ul>
             <li v-for="o in menus">
