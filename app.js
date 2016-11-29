@@ -43,7 +43,6 @@ var menuComponent = Vue.extend({
         },
     },
 });
-Vue.component('menu-component', menuComponent);
 var billListComponent = Vue.extend({
     template: `
         <style type="text/css">
@@ -107,7 +106,6 @@ var billListComponent = Vue.extend({
         },
     }
 });
-Vue.component('bill-list-component', billListComponent);
 var billCreateComponent = Vue.extend({
     template:`
         <form name="form" @submit.prevent="submit">
@@ -145,7 +143,7 @@ var billCreateComponent = Vue.extend({
     methods: {
         submit: function(){
             if(this.formType == 'insert'){
-                this.bills.push(this.bill);
+                this.$parent.$children[1].bills.push(this.bill);
             }
             this.bill = {
                 data_due: '',
@@ -153,12 +151,16 @@ var billCreateComponent = Vue.extend({
                 value: 0,
                 done: false
             };
-            this.activedView = 0;
+            this.$parent.activedView = 0;
         },
     }
 });
-Vue.component('bill-create-component',billCreateComponent);
 var appComponent = Vue.extend({
+    components: {
+        'menu-component' : menuComponent,
+        'bill-list-component': billListComponent,
+        'bill-create-component': billCreateComponent
+    },
     template: `
     <style type="text/css">
         .pago{
@@ -179,10 +181,10 @@ var appComponent = Vue.extend({
         {{status | corContas}} 
     </h3>
     <menu-component></menu-component>
-    <div v-if="activedView == 0">
+    <div v-show="activedView == 0">
         <bill-list-component></bill-list-component>
     </div>
-    <div v-if="activedView == 1">
+    <div v-show="activedView == 1">
        <bill-create-component :bill="bill" :form-type="formType"></bill-create-component>      
     </div>
     `,
