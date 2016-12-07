@@ -41,7 +41,7 @@ window.billCreateComponent = Vue.extend({
     methods: {
         submit: function(){
             if(this.formType == 'insert'){
-                this.$dispatch('new-bill', this.bill);
+                this.$root.$children[0].bills.push(this.bill);
             }
             this.bill = {
                 data_due: '',
@@ -49,12 +49,10 @@ window.billCreateComponent = Vue.extend({
                 value: 0,
                 done: false
             };
+            this.$router.go({name: 'bill.list'});
         },
     },
     events: {
-        'change-formType': function(formType){
-            this.formType = formType;
-        },
         'change-bill': function(bill) {
             this.bill = bill;
         },

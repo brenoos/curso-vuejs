@@ -43,17 +43,11 @@ window.billListComponent = Vue.extend({
     methods: {
         loadBill: function(bill){
             this.$dispatch('change-bill', bill);
-            this.$dispatch('change-formtype', 'update');
         },
         remover: function(index){
             if(confirm("deseja exlucir?")){
                 this.bills.splice(index, 1);
             }
         },
-    },
-    events:{
-        'new-bill': function (bill) {
-            this.bills.push(bill);
-        }
     }
 });
