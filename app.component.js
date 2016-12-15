@@ -4,8 +4,6 @@
 window.appComponent = Vue.extend({
     components: {
         'menu-component' : menuComponent,
-        'bill-list-component': billListComponent,
-        'bill-create-component': billCreateComponent
     },
     template: `
     <style type="text/css">
@@ -49,13 +47,4 @@ window.appComponent = Vue.extend({
             return count;
         }
     },
-    methods: {},
-    events: {
-        'change-bill': function(bill){
-            this.$broadcast('change-bill',bill);
-        },
-        'new-bill': function(bill){
-            this.$broadcast('new-bill', bill);
-        }
-    }
 });

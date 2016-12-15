@@ -29,7 +29,8 @@ window.billListComponent = Vue.extend({
                         {{o.done | doneLabel}}
                     </td>
                     <td>
-                        <a href="#" @click.prevent="loadBill(o)">Editar</a> <a href="#" @click.prevent='remover(index)'>Remover</a>
+                        <a v-link="{name: 'bill.update', params: {index: index}}">Editar</a> 
+                        <a href="#" @click.prevent='remover(o)'>Remover</a>
                     </td>
                 </tr>
             </tbody>
@@ -41,12 +42,9 @@ window.billListComponent = Vue.extend({
         };
     },
     methods: {
-        loadBill: function(bill){
-            this.$dispatch('change-bill', bill);
-        },
-        remover: function(index){
+        remover: function(bill){
             if(confirm("deseja exlucir?")){
-                this.bills.splice(index, 1);
+                this.$root.$children[0].bills.$remove(bill);
             }
         },
     }
