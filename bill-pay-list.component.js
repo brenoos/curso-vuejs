@@ -1,4 +1,4 @@
-window.billListComponent = Vue.extend({
+window.billPayListComponent = Vue.extend({
     template: `
         <style type="text/css">
         .pago{
@@ -38,13 +38,13 @@ window.billListComponent = Vue.extend({
     `,
     data: function(){
         return {
-            bills: this.$root.$children[0].bills
+            bills: this.$root.$children[0].billsPay
         };
     },
     methods: {
         remover: function(bill){
             if(confirm("deseja exlucir?")){
-                this.$root.$children[0].bills.$remove(bill);
+                this.$root.$children[0].billsPay.$remove(bill);
             }
         },
     }
