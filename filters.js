@@ -9,6 +9,14 @@ Vue.filter('doneLabel', function(value){
     }
 });
 
+Vue.filter('doneLabelReceive', function(value){
+    if(value == false){
+        return "Não Recebida";
+    }else{
+        return "Recebida";
+    }
+});
+
 Vue.filter('corContas', function(value){
     if(value === false){
         return "Nenhuma conta Cadastrada";
@@ -17,5 +25,16 @@ Vue.filter('corContas', function(value){
         return "Nenhuma conta a pagar"
     }else{
         return "Você tem "+value+" contas a pagar";
+    }
+});
+
+Vue.filter('corContasReceive', function(value){
+    if(value === false){
+        return "Nenhuma conta Cadastrada";
+    }
+    if(!value){
+        return "Nenhuma conta a receber"
+    }else{
+        return "Você tem "+value+" contas a receber";
     }
 });

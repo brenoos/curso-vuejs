@@ -1,4 +1,4 @@
-window.billPayCreateComponent = Vue.extend({
+window.billReceiveCreateComponent = Vue.extend({
     template:`
         <form name="form" @submit.prevent="submit">
             <label>Vencimento:</label>
@@ -12,7 +12,7 @@ window.billPayCreateComponent = Vue.extend({
             <label>Valor:</label>
             <input type="text" v-model="bill.value"/>
             <br /><br />
-            <label> Paga</label>
+            <label> Recebida</label>
             <input type="checkbox" v-model="bill.done" />
             <br /><br />
             <input type="submit" value="Enviar"/>
@@ -22,13 +22,11 @@ window.billPayCreateComponent = Vue.extend({
         return {
             formType: 'insert',
             names: [
-                'Conta de luz',
-                'Conta de água',
-                'Conta de telefone',
-                'Supermercado',
-                'Cartão de crédito',
-                'Empréstimo',
-                'Gasolina',
+                'Casas',
+                'Salário',
+                'Vale Alimentação',
+                'Vale Refeição',
+                'Vale Transporte'
             ],
             bill: {
                 data_due: '',
@@ -39,7 +37,7 @@ window.billPayCreateComponent = Vue.extend({
         };
     },
     created: function(){
-        if(this.$route.name == 'bill.update'){
+        if(this.$route.name == 'bill-receive.update'){
             this.formType = 'update';
             this.getBill(this.$route.params.index);
         }
@@ -47,7 +45,7 @@ window.billPayCreateComponent = Vue.extend({
     methods: {
         submit: function(){
             if(this.formType == 'insert'){
-                this.$root.$children[0].billsPay.push(this.bill);
+                this.$root.$children[0].billsReceive.push(this.bill);
             }
             this.bill = {
                 data_due: '',
@@ -55,10 +53,10 @@ window.billPayCreateComponent = Vue.extend({
                 value: 0,
                 done: false
             };
-            this.$router.go({name: 'bill.list'});
+            this.$router.go({name: 'bill-receive.list'});
         },
         getBill: function(index) {
-            this.bill = this.$root.$children[0].billsPay[index];
+            this.bill = this.$root.$children[0].billsReceive[index];
         },
     },
 });

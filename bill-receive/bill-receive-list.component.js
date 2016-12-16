@@ -1,4 +1,4 @@
-window.billPayListComponent = Vue.extend({
+window.billReceiveListComponent = Vue.extend({
     template: `
         <style type="text/css">
         .pago{
@@ -15,7 +15,7 @@ window.billPayListComponent = Vue.extend({
                     <th>Vencimento</th>
                     <th>Nome</th>
                     <th>Valor</th>
-                    <th>Paga?</th>
+                    <th>Recebida?</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -26,10 +26,10 @@ window.billPayListComponent = Vue.extend({
                     <td> {{o.name}} </td>
                     <td> {{o.value | currency 'R$ ' 2}} </td>
                     <td class="minha-classe" :class="{'pago': o.done, 'nao-pago': !o.done}">
-                        {{o.done | doneLabel}}
+                        {{o.done | doneLabelReceive}}
                     </td>
                     <td>
-                        <a v-link="{name: 'bill.update', params: {index: index}}">Editar</a> 
+                        <a v-link="{name: 'bill-receive.update', params: {index: index}}">Editar</a> 
                         <a href="#" @click.prevent='remover(o)'>Remover</a>
                     </td>
                 </tr>
@@ -38,13 +38,13 @@ window.billPayListComponent = Vue.extend({
     `,
     data: function(){
         return {
-            bills: this.$root.$children[0].billsPay
+            bills: this.$root.$children[0].billsReceive
         };
     },
     methods: {
         remover: function(bill){
             if(confirm("deseja exlucir?")){
-                this.$root.$children[0].billsPay.$remove(bill);
+                this.$root.$children[0].billsReceive.$remove(bill);
             }
         },
     }
