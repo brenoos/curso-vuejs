@@ -22,7 +22,7 @@ window.billPayListComponent = Vue.extend({
             <tbody>
                 <tr v-for="(index,o) in bills">
                     <td> {{index + 1}} </td>
-                    <td> {{o.data_due}} </td>
+                    <td> {{o.date_due}} </td>
                     <td> {{o.name}} </td>
                     <td> {{o.value | currency 'R$ ' 2}} </td>
                     <td class="minha-classe" :class="{'pago': o.done, 'nao-pago': !o.done}">
@@ -36,10 +36,18 @@ window.billPayListComponent = Vue.extend({
             </tbody>
         </table>
     `,
+    http: {
+        root: 'http://127.0.0.1:8000/api'
+    },
     data: function(){
         return {
-            bills: this.$root.$children[0].billsPay
+            bills: []
         };
+    },
+    created: function () {
+      this.$http.get('bills').then(function (response) {
+          this.bills = response.data;
+      })
     },
     methods: {
         remover: function(bill){

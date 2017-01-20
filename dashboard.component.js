@@ -8,20 +8,16 @@ window.dashboardComponent = Vue.extend({
     <br/><br/>
     <h2>Seu saldo será de {{totalReceber - totalPagar | currency 'R$ ' 2}}</h2>
     `,
+    http: {
+        root: 'http://127.0.0.1:8000/api'
+    },
     data: function(){
         return {
             title: "Dashboard",
+            totalPagar: 0,
         };
     },
     computed: {
-        totalPagar(){
-            var total = 0;
-            var bills = this.$root.$children[0].billsPay;
-            for(var i in bills){
-                total += bills[i].value
-            }
-            return total;
-        },
         totalReceber(){
             var total = 0;
             var bills = this.$root.$children[0].billsReceive;
@@ -30,5 +26,15 @@ window.dashboardComponent = Vue.extend({
             }
             return total;
         }
+    },
+    created: function () {
+        this.getTotalPagar()
+    },
+    methods: {
+      getTotalPagar(){
+          this.$http.get('bills/total').then(function (response) {
+              this.totalPagar = response.data.total;
+          })
+      }
     },
 });
