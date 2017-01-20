@@ -29,7 +29,7 @@ window.billPayListComponent = Vue.extend({
                         {{o.done | doneLabel}}
                     </td>
                     <td>
-                        <a v-link="{name: 'bill-pay.update', params: {index: index}}">Editar</a> 
+                        <a v-link="{name: 'bill-pay.update', params: {id: o.id}}">Editar</a> 
                         <a href="#" @click.prevent='remover(o)'>Remover</a>
                     </td>
                 </tr>
@@ -52,7 +52,9 @@ window.billPayListComponent = Vue.extend({
     methods: {
         remover: function(bill){
             if(confirm("deseja exlucir?")){
-                this.$root.$children[0].billsPay.$remove(bill);
+                this.$http.delete('bills/'+bill.id).then(function (response) {
+                    this.bills.$remove(bill);
+                });
             }
         },
     }
