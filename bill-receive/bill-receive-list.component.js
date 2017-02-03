@@ -15,7 +15,7 @@ window.billReceiveListComponent = Vue.extend({
                     <th>Vencimento</th>
                     <th>Nome</th>
                     <th>Valor</th>
-                    <th>Recebida?</th>
+                    <th>Recebida ?</th>
                     <th>Ações</th>
                 </tr>
             </thead>
