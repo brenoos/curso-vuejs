@@ -8,9 +8,6 @@ window.dashboardComponent = Vue.extend({
     <br/><br/>
     <h2>Seu saldo será de {{totalReceber - totalPagar | currency 'R$ ' 2}}</h2>
     `,
-    http: {
-        root: 'http://127.0.0.1:8000/api'
-    },
     data: function(){
         return {
             title: "Dashboard",

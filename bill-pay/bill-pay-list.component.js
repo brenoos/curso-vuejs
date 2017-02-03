@@ -36,24 +36,22 @@ window.billPayListComponent = Vue.extend({
             </tbody>
         </table>
     `,
-    http: {
-        root: 'http://127.0.0.1:8000/api'
-    },
     data: function(){
         return {
             bills: []
         };
     },
     created: function () {
-      this.$http.get('bills').then(function (response) {
+      Bill.query().then((response) => {
           this.bills = response.data;
-      })
+      });
     },
     methods: {
         remover: function(bill){
             if(confirm("deseja exlucir?")){
-                this.$http.delete('bills/'+bill.id).then(function (response) {
+                Bill.delete({id: bill.id}).then((response) => {
                     this.bills.$remove(bill);
+                    this.$dispatch('change-status');
                 });
             }
         },
