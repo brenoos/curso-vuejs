@@ -22,14 +22,14 @@ window.billReceiveListComponent = Vue.extend({
             <tbody>
                 <tr v-for="(index,o) in bills">
                     <td> {{index + 1}} </td>
-                    <td> {{o.data_due}} </td>
+                    <td> {{o.date_due}} </td>
                     <td> {{o.name}} </td>
                     <td> {{o.value | currency 'R$ ' 2}} </td>
                     <td class="minha-classe" :class="{'pago': o.done, 'nao-pago': !o.done}">
                         {{o.done | doneLabelReceive}}
                     </td>
                     <td>
-                        <a v-link="{name: 'bill-receive.update', params: {index: index}}">Editar</a> 
+                        <a v-link="{name: 'bill-receive.update', params: {id: o.id}}">Editar</a> 
                         <a href="#" @click.prevent='remover(o)'>Remover</a>
                     </td>
                 </tr>
@@ -38,13 +38,21 @@ window.billReceiveListComponent = Vue.extend({
     `,
     data: function(){
         return {
-            bills: this.$root.$children[0].billsReceive
+            bills: []
         };
+    },
+    created: function () {
+        BillReceive.query().then((response) => {
+            this.bills = response.data;
+        });
     },
     methods: {
         remover: function(bill){
             if(confirm("deseja exlucir?")){
-                this.$root.$children[0].billsReceive.$remove(bill);
+                BillReceive.delete({id: bill.id}).then((response) => {
+                    this.bills.$remove(bill);
+                    this.$dispatch('change-info');
+                });
             }
         },
     }

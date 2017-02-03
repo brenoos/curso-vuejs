@@ -21,19 +21,25 @@ window.billReceiveComponent = Vue.extend({
     <h3 :class="{'nao-pago': status > 0, 'pago': status === 0, 'cinza': status === false}">
         {{status | corContasReceive}}
     </h3>
+    <h3>Total: {{total | currency 'R$ ' 2}}</h3>
     <menu-component></menu-component>
     <router-view></router-view>
     `,
     data: function(){
         return {
             title: "Contas a Receber",
+            status: false,
+            total: 0
         };
     },
-    computed: {
-        status: function(){
-            var bills = this.$root.$children[0].billsReceive;
+    created: function () {
+        this.updateStatus();
+        this.updateTotal();
+    },
+    methods:{
+        calculateStatus: function (bills) {
             if(!bills.length){
-                return false;
+                this.status = false;
             }
             var count = 0;
             for(var i in bills){
@@ -41,7 +47,23 @@ window.billReceiveComponent = Vue.extend({
                     count++;
                 }
             }
-            return count;
+            this.status = count;
+        },
+        updateStatus: function () {
+            BillReceive.query().then((response) => {
+                this.calculateStatus(response.data);
+            });
+        },
+        updateTotal: function () {
+            BillReceive.total().then((response) => {
+                this.total= response.data.total;
+            });
         }
     },
+    events:{
+        'change-info': function () {
+            this.updateStatus();
+            this.updateTotal();
+        }
+    }
 });

@@ -24,7 +24,7 @@ window.billPayComponent = Vue.extend({
     <h3 :class="{'nao-pago': status > 0, 'pago': status === 0, 'cinza': status === false}">
         {{status | corContas}}
     </h3>
-    <h3>Total: {{total | currency 'R$ '}}</h3>
+    <h3>Total: {{total | currency 'R$ ' 2}}</h3>
     <menu-component></menu-component>
     <router-view></router-view>
     `,

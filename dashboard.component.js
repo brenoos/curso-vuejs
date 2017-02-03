@@ -12,26 +12,23 @@ window.dashboardComponent = Vue.extend({
         return {
             title: "Dashboard",
             totalPagar: 0,
+            totalReceber: 0
         };
     },
-    computed: {
-        totalReceber(){
-            var total = 0;
-            var bills = this.$root.$children[0].billsReceive;
-            for(var i in bills){
-                total += bills[i].value
-            }
-            return total;
-        }
-    },
     created: function () {
-        this.getTotalPagar()
+        this.getTotalPagar();
+        this.getTotalReceber();
     },
     methods: {
       getTotalPagar(){
           Bill.total().then((response) => {
               this.totalPagar = response.data.total;
           })
-      }
+      },
+        getTotalReceber(){
+            BillReceive.total().then((response) => {
+                this.totalReceber = response.data.total;
+            })
+        }
     },
 });
