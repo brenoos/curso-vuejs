@@ -29,7 +29,7 @@ window.dashboardComponent = Vue.extend({
     },
     methods: {
       getTotalPagar(){
-          this.$http.get('bills/total').then(function (response) {
+          Bill.total().then((response) => {
               this.totalPagar = response.data.total;
           })
       }

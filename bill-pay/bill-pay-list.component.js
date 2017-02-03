@@ -51,7 +51,7 @@ window.billPayListComponent = Vue.extend({
             if(confirm("deseja exlucir?")){
                 Bill.delete({id: bill.id}).then((response) => {
                     this.bills.$remove(bill);
-                    this.$dispatch('change-status');
+                    this.$dispatch('change-info');
                 });
             }
         },

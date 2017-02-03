@@ -24,17 +24,20 @@ window.billPayComponent = Vue.extend({
     <h3 :class="{'nao-pago': status > 0, 'pago': status === 0, 'cinza': status === false}">
         {{status | corContas}}
     </h3>
+    <h3>Total: {{total | currency 'R$ '}}</h3>
     <menu-component></menu-component>
     <router-view></router-view>
     `,
     data: function(){
         return {
             title: "Contas a pagar",
-            status: false
+            status: false,
+            total: 0
         };
     },
     created: function () {
       this.updateStatus();
+        this.updateTotal();
     },
     methods:{
         calculateStatus: function (bills) {
@@ -53,11 +56,17 @@ window.billPayComponent = Vue.extend({
             Bill.query().then((response) => {
                 this.calculateStatus(response.data);
             });
+        },
+        updateTotal: function () {
+            Bill.total().then((response) => {
+                this.total= response.data.total;
+            });
         }
     },
     events:{
-        'change-status': function () {
+        'change-info': function () {
             this.updateStatus();
+            this.updateTotal();
         }
     }
 });
