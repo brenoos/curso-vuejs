@@ -15,7 +15,7 @@ window.billPayListComponent = Vue.extend({
                     <th>Vencimento</th>
                     <th>Nome</th>
                     <th>Valor</th>
-                    <th>Paga?</th>
+                    <th>Paga ?</th>
                     <th>Ações</th>
                 </tr>
             </thead>
